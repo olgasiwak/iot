@@ -4,11 +4,11 @@ import time
 ENCODING = 'utf-8'
 
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+ str(rc))
+    print("Connected with result code " + str(rc))
     client.subscribe("test_topic1")
 
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+ msg.payload.decode(ENCODING))
+    print(msg.topic+ " " + msg.payload.decode(ENCODING))
 
 def main():
     client = mqtt.Client()
