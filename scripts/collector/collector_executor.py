@@ -15,7 +15,7 @@ STATES = {}
 BACKUP_STATEFILE = 'states.backup'
 
 
-class LampState(str, Enum):
+class LampState(Enum):
     on = 1
     off = 0
 
