@@ -1,98 +1,80 @@
-from enum import Enum
-
-import paho.mqtt.client as mqtt
-import threading
 import json
 import pprint
-import socket
+import re
+import threading
 
-MQTT_ADDRESS = socket.gethostbyname(socket.gethostname())
-MQTT_PORT = 1883
-MQTT_TIMEOUT = 60
+import config
+import paho.mqtt.client as mqtt
+from lamp import Lamp
+from lamp import LampState
 
-ENCODING = 'utf-8'
 STATES = {}
-BACKUP_STATEFILE = 'states.backup'
 
 
-class LampState(Enum):
-    on = 1
-    off = 0
+class Module:
+    def __init__(self):
+        self.client = mqtt.Client()
 
+    def change_lamps_states(self, lamp):
+        if lamp.state == LampState.on:
+            self.send_on_signal(lamp.name)
+        elif lamp.state == LampState.off:
+            self.send_off_signal(lamp.name)
+        else:
+            config.logger.debug("Wrong message format")
 
-class Lamp:
-    def __init__(self, name: str, state: LampState) -> None:
-        self.name = name
-        self.state = state
+    def send_on_signal(self, lamp_name):
+        topic_name = self.prepare_topic_name(lamp_name)
+        config.logger.debug(f'Send on signal to {topic_name}')
+        self.client.publish(topic_name, LampState.on.value)
 
+    def send_off_signal(self, lamp_name):
+        topic_name = self.prepare_topic_name(lamp_name)
+        config.logger.debug(f'Send off signal to {topic_name}')
+        self.client.publish(topic_name, LampState.off.value)
 
-def change_lamps_states(lamp):
-    if lamp.state == LampState.on:
-        send_on_signal(lamp.name)
-    elif lamp.state == LampState.off:
-        send_off_signal(lamp.name)
-    else:
-        print("Wrong message format")
+    def prepare_topic_name(self, lamp_name):
+        sensor_group_name = re.split("/", lamp_name)[-1]
+        return config.TOPIC_EXECUTOR_SENSORS_REGEX + sensor_group_name
 
+    def on_connect(self, client, userdata, flags, rc):
+        config.logger.debug(f'Connected with result code {str(rc)}')
+        self.client.subscribe(config.TOPIC_SENSORS_COLLECTOR_REGEX)
 
-def send_on_signal(lamp_name):
-    print(f'Send on signal to {lamp_name}')
-    client = mqtt.Client()
-    client.connect(MQTT_ADDRESS, MQTT_PORT, MQTT_TIMEOUT)
-    client.publish(lamp_name, LampState.on.value)
+    def on_message(self, client, userdata, msg):
+        if msg.topic not in STATES:
+            config.logger.debug(f'Adding new sensor group {msg.topic}')
+            STATES[msg.topic] = msg.payload.decode(config.ENCODING)
+        elif STATES[msg.topic] != msg.payload.decode(config.ENCODING):
+            STATES[msg.topic] = msg.payload.decode(config.ENCODING)
+            state = int(STATES[msg.topic])
+            self.notify_executor(Lamp(msg.topic, LampState(state)))
+        config.logger.debug(pprint.pprint(STATES))
 
+    def notify_executor(self, lamp):
+        config.logger.debug('executor notified')
+        self.change_lamps_states(lamp)
+        pass
 
-def send_off_signal(lamp_name):
-    print(f'Send off signal to {lamp_name}')
-    client = mqtt.Client()
-    client.publish(lamp_name, LampState.off.value)
+    def notify_data_to_metric(self):
+        config.logger.debug('data2metric notified')
+        # call date2metric class there
+        threading.Timer(5.0, self.notify_data_to_metric()).start()
+        pass
 
-
-def on_connect(client, userdata, flags, rc):
-    print(f'Connected with result code {str(rc)}')
-    client.subscribe('sensors/+')
-
-
-def on_message(client, userdata, msg):
-    if msg.topic not in STATES:
-        STATES[msg.topic] = msg.payload.decode(ENCODING)
-    elif STATES[msg.topic] != msg.payload.decode(ENCODING):
-        STATES[msg.topic] = msg.payload.decode(ENCODING)
-        state = int(STATES[msg.topic])
-        notify_executor(Lamp(msg.topic, LampState(state)))
-    print(pprint.pprint(STATES))
-
-
-def notify_executor(lamp):
-    print('executor notified')
-    change_lamps_states(lamp)
-    pass
-
-
-def notify_data_to_metric():
-    print('data2metric notified')
-    # call date2metric class there
-    threading.Timer(5.0, notify_data_to_metric()).start()
-    pass
-
-
-def main():
-    client = mqtt.Client()
-    client.on_connect = on_connect
-    client.on_message = on_message
-    client.connect(MQTT_ADDRESS, MQTT_PORT, MQTT_TIMEOUT)
-    try:
-        # notify_data_to_metric()
-        client.loop_forever()
-    except KeyboardInterrupt:
-        with open(BACKUP_STATEFILE, 'w') as backup:
-            backup.write(json.dumps(STATES))
-        print('disconnected')
+    def main(self):
+        self.client.on_connect = self.on_connect
+        self.client.on_message = self.on_message
+        self.client.connect(config.MQTT_ADDRESS, config.MQTT_PORT, config.MQTT_TIMEOUT)
+        try:
+            # notify_data_to_metric()
+            self.client.loop_forever()
+        except KeyboardInterrupt:
+            with open(config.BACKUP_STATEFILE, 'w') as backup:
+                backup.write(json.dumps(STATES))
+            config.logger.debug('disconnected')
 
 
 if __name__ == "__main__":
-    main()
-
-# TODO convert into object oriented program
-# TODO prepare a mechanism for switching on entire sections of lamps
-# TODO prepare a mechanism for storing previous state of sensors
+    module = Module()
+    module.main()
