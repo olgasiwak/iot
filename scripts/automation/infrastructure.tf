@@ -66,7 +66,20 @@ resource "linode_instance" "iot-client2" {
     private_ip = true
 }
 resource "linode_instance" "iot-vis" {
-    label = "client2"
+    label = "vis"
+    image = "linode/ubuntu20.04"
+    region = "us-central"
+    type = "g6-standard-1"
+    authorized_keys = [linode_sshkey.ssh_key.ssh_key]
+    root_pass = var.root_password
+
+    group = "iot"
+    tags = [ "iot", "poc" ]
+    swap_size = 256
+    private_ip = true
+}
+resource "linode_instance" "iot-disco" {
+    label = "disco"
     image = "linode/ubuntu20.04"
     region = "us-central"
     type = "g6-standard-1"
