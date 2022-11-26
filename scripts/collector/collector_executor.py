@@ -7,6 +7,7 @@ import config
 import paho.mqtt.client as mqtt
 from lamp import Lamp
 from lamp import LampState
+from data2metric import InfluxClient
 
 STATES = {}
 
@@ -49,6 +50,7 @@ class Module:
             STATES[msg.topic] = msg.payload.decode(config.ENCODING)
             state = int(STATES[msg.topic])
             self.notify_executor(Lamp(msg.topic, LampState(state)))
+        self.notify_data_to_metric(STATES)
         config.logger.debug(pprint.pprint(STATES))
 
     def notify_executor(self, lamp):
@@ -56,18 +58,24 @@ class Module:
         self.change_lamps_states(lamp)
         pass
 
-    def notify_data_to_metric(self):
+    def notify_data_to_metric(self, states):
         config.logger.debug('data2metric notified')
-        # call date2metric class there
-        threading.Timer(5.0, self.notify_data_to_metric()).start()
-        pass
+        Influx = InfluxClient(config.INFLUX_ORG,
+                                    config.INFLUX_URL,
+                                    config.INFLUX_BUCKET,
+                                    config.INFLUX_TOKEN
+                                    )
+
+        Influx.write_to_database(
+                Influx.prepare_single_sensor_datapoints(STATES))
+        Influx.write_to_database(
+                [Influx.prepare_active_lanterns_ratio_datapoint(STATES)])
 
     def main(self):
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         self.client.connect(config.MQTT_ADDRESS, config.MQTT_PORT, config.MQTT_TIMEOUT)
         try:
-            # notify_data_to_metric()
             self.client.loop_forever()
         except KeyboardInterrupt:
             with open(config.BACKUP_STATEFILE, 'w') as backup:
