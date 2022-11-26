@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -7,9 +7,11 @@ Base = declarative_base()
 
 class Devices(Base):
     __tabelname__ = "devices"
-    id = Column(Integer, primary_key=True)
+    udid = Column(String, primary_key=True)
     mac = Column(String, nullable=False, unique=True)
-    version_id = Column(Integer, ForeignKey("versions.id"))
+    longitude = Column(String, nullable=False)
+    latitude = Column(String, nullable=False)
+    version_id = Column(Integer, ForeignKey("versions.hw_type"))
     group_id = Column(Integer, ForeignKey("groups.id"))
 
     version = relationship("Versions", back_populates="devices")
@@ -18,8 +20,7 @@ class Devices(Base):
 
 class Versions(Base):
     __tabelname__ = "versions"
-    id = Column(Integer, primary_key=True)
-    hw_type = Column(String)
+    hw_type = Column(String, primary_key=True)
     description = Column(String)
 
 
@@ -28,6 +29,7 @@ class Groups(Base):
     id = Column(Integer, primary_key=True)
     quantity = Column(Integer, default=0, nullable=False)
     description = Column(String)
+    configuration = Column(JSON)
     client_id = Column(Integer, ForeignKey("clients.id"))
 
     client = relationship("Clients", back_populates="groups")
