@@ -14,6 +14,7 @@ CREATE TABLE GROUPS (
           id int primary key,
           description varchar(120),
           client_id int references CLIENTS(id),
+          configuration json,
           quantity int
 );
 
