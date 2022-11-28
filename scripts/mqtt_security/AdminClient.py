@@ -56,5 +56,5 @@ if __name__ == '__main__':
     adminClient.createClient(
         clientName="ClientName",
         clientPassword="ClientPassword",
-        roleName="ClientRole"
+        roleName="RoleName"
     )
