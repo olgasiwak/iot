@@ -17,6 +17,8 @@ INFLUX_URL = 'http://192.168.179.97:8086'
 INFLUX_BUCKET = 'IoT'
 INFLUX_TOKEN = os.environ.get("INFLUXDB_TOKEN")
 
+DATA2METRIC_POLLING_CYCLE = 1
+
 logger = logging.getLogger(__name__)
 streamHandler = logging.StreamHandler(sys.stdout)
 logger.setLevel(logging.DEBUG)
