@@ -3,7 +3,9 @@ import sqlalchemy
 import asyncio
 import logging
 import config
-import psycopg2
+from sqlalchemy.orm import Session
+import paho.mqtt.client as mqtt
+import models
 
 from abc import ABC, abstractclassmethod
 
@@ -21,17 +23,23 @@ class Module(ABC):
 
 class Discoverer(Module):
     async def on_start(self) -> None:
-
-        # verify connection to DB
+        """This fucntions is responsible for module warm up."""
         logger.debug("Verifying connection to DB ...")
         try:
             db_engine = sqlalchemy.create_engine(config.POSTGRESQL_DB_URL)
-            print(db_engine.connect())
-        except psycopg2.OperationalError:
+            with Session(db_engine) as session:
+                session.flush()
+        except sqlalchemy.exc.OperationalError:
             logger.error("Failed to connect to Postgres!")
-        # verify connection to Broker
+            raise
+
         logger.debug("Verifying connection to Broker ...")
-        pass
+        try:
+            client = mqtt.Client()
+            client.connect(config.BROKER_HOST, config.BROKER_PORT, keepalive=60)
+        except ConnectionRefusedError:
+            logger.error("Failed to connect to Broker!")
+            raise
 
 
 if __name__ == "__main__":
