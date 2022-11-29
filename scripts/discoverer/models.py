@@ -18,6 +18,9 @@ class Devices(Base):
     version = relationship("Versions", back_populates="devices")
     group = relationship("Groups", back_populates="devices")
 
+    def __repr__(self):
+        return "<Device(udid='%s', mac='%s', ...)>" % (self.udid, self.mac)
+
 
 class Versions(Base):
     __tablename__ = "versions"
@@ -26,6 +29,9 @@ class Versions(Base):
     description = Column(String)
 
     devices = relationship("Devices", back_populates="version")
+
+    def __repr__(self):
+        return "<Versions(hw_type='%s', ...)>" % (self.hw_type)
 
 
 class Groups(Base):
@@ -39,6 +45,10 @@ class Groups(Base):
     client = relationship("Clients", back_populates="groups")
     devices = relationship("Devices", back_populates="group")
 
+    def __repr__(self):
+        return "<Groups(client_id='%s', configuration='%s'...)>" \
+                % (self.client_id, self.configuration)
+
 
 class Clients(Base):
     __tablename__ = "clients"
@@ -47,3 +57,6 @@ class Clients(Base):
     description = Column(String)
 
     groups = relationship("Groups", back_populates="client")
+
+    def __repr__(self):
+        return "<Clients(name='%s', ...)>" % (self.name)
