@@ -46,5 +46,4 @@ class Clients(Base):
     name = Column(String, nullable=False, unique=True)
     description = Column(String)
 
-    #groups = relationship("Groups", back_populates="client")
-
+    groups = relationship("Groups", back_populates="client")
