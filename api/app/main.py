@@ -14,6 +14,8 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*']
+    allow_methods=[""],
+    allow_headers=["*"]
     )
 
 
@@ -45,7 +47,7 @@ def read_group_by_id(id: int, db:Session = Depends(get_db)):
     return group
 
 @app.put("/group/{id}/", response_model=schemas.Group)
-def create_or_update_group(id: int, upper_threshold: float, db:Session = Depends(get_db)):
+def update_group(id: int, upper_threshold: float, db:Session = Depends(get_db)):
     group = crud.get_group(db, id)
     if group is None:
         raise HTTPException(status_code=404, detail="Resource not found")
