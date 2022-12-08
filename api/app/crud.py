@@ -12,6 +12,13 @@ def get_clients(db: Session):
 def get_group(db: Session, id: int):
     return db.query(models.Groups).filter(models.Groups.id == id).first()
 
+def update_group(db: Session, group: models.Groups, id: int, upper_threshold: float):
+    db_group = db.query(models.Groups).filter(models.Groups.id == id).first()
+    db_group.configuration = {"lower_threshold":0.2,"upper_threshold":upper_threshold}
+    db.commit()
+    db.refresh(db_group)
+    return db_group
+
 def get_groups(db: Session):
      return db.query(models.Groups).all()
 
