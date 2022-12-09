@@ -2,6 +2,7 @@ from typing import List
 
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
@@ -9,6 +10,13 @@ from .database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+    allow_methods=[""],
+    allow_headers=["*"]
+    )
 
 
 # Dependency
@@ -37,6 +45,13 @@ def read_group_by_id(id: int, db:Session = Depends(get_db)):
     if group is None:
         raise HTTPException(status_code=404, detail="Resource not found")
     return group
+
+@app.put("/group/{id}/", response_model=schemas.Group)
+def update_group(id: int, upper_threshold: float, db:Session = Depends(get_db)):
+    group = crud.get_group(db, id)
+    if group is None:
+        raise HTTPException(status_code=404, detail="Resource not found")
+    return crud.update_group(db=db, group=group, id=id, upper_threshold=upper_threshold)
 
 @app.get("/groups/", response_model=List[schemas.Group])
 def read_groups(db: Session = Depends(get_db)):
