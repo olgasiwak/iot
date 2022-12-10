@@ -1,0 +1,20 @@
+season:
+  winter: 1
+  autumn: 2
+  spring: 4
+  summer: 5
+  default: 3
+
+daytime:
+  night: 1
+  dusk: 2
+  morning: 4
+  evening: 5
+  default: 3
+
+weather:
+  rainy: 1
+  snowy: 2
+  windy: 4
+  cloudy: 5
+  default: 3
