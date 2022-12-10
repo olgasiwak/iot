@@ -100,7 +100,7 @@ def start_simulator(client, conditions, weight, STATES):
             client.publish(f"{config.SIMULATOR_SENSORS_PATTERN}{i}", choice)
             weight = tmp
         display_states(STATES)
-        time.sleep(1)
+        time.sleep(config.SIMULATOR_POLLING_RATE)
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
