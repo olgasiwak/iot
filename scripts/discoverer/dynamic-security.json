@@ -1,0 +1,18 @@
+{
+	"defaultACLAccess":	{
+		"publishClientSend":	false,
+		"publishClientReceive":	true,
+		"subscribe":	false,
+		"unsubscribe":	false
+	},
+	"clients":	[{
+			"username":	"adminLogin",
+			"textname":	"Dynsec admin user",
+			"roles":	[{
+					"rolename":	"admin"
+				}],
+			"password":	"ZViJCwHaEVDDsZnpMeAZJqSWbyKVfsuSOnLgW5U/8A80clZqeuvsmxUJm07e+8y/gz03wXslWmYPYYNTMTzcmA==",
+			"salt":	"QYZKxCzPRsWuT1CU",
+			"iterations":	101
+				}]
+}
