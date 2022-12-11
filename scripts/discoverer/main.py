@@ -19,7 +19,7 @@ logger.addHandler(streamHandler)
 
 class Module(ABC):
     @abstractclassmethod
-    async def run(self) -> None:
+    def run(self) -> None:
         pass
 
 
@@ -46,27 +46,24 @@ class Discoverer(Module):
             logger.error("Failed to connect to Broker!")
 
         self.guard = Guardian()
+        self.guard.run()
 
-    def create_roles_for_devices(self):
-        with self.session as s:
-            stmt = select(models.Devices).all()
-            result = s.execute(stmt)
-            for device in result:
-                self.guard.create_role(
-                    role_name=f"iot_{device.udid}",
-                    topics_to_send=[f"collector/{device.udid}", ],
-                    topics_to_subscribe=[f"discoverer/config/{device.udid}", ],
-                    topics_to_receive=[f"discoverer/config/{device.udid}", ]
-                )
-                self.guard.create_client(
-                    client_name=f"{device.udid}",
-                    client_password=f"{device.udid}",
-                    role_name=f"iot_{device.udid}"
-                )
+    def send_configuration(self, device: models.Devices):
+        logger.debug(f"Sending config to {device}...")
+        payload: dict = device.group.configuration
+
+        self.client.publish(
+            topic=config.BROKER_CONFIGURATION_TOPIC.format(udid=device.udid),
+            payload=json.dumps(payload).encode("utf-8")
+        )
 
     def on_broker_connect(self, client, userdata, flags, rc):
         logger.debug(f'Connected to broker with result code {str(rc)}')
         self.client.subscribe(config.BROKER_DISCOVERY_TOPIC)
+        with self.session as s:
+            stmt = select(models.Devices)
+            result = s.execute(stmt).all()
+            self.guard.create_roles_for_devices(result)
 
     def on_broker_message(self,
                           client: mqtt.Client,
@@ -95,7 +92,9 @@ class Discoverer(Module):
 
             # it's supposed to have either 1 or 0 elements as UDID is unique
             if results:
-                logger.debug(f"Found device {results[0]}")
+                res: models.Devices = results[0][0]
+                logger.debug(f"Found device {res}")
+                self.send_configuration(res)
             else:
                 logger.info(
                     f"No devices found with MAC: {mac} and UDID: {udid}")
@@ -122,7 +121,7 @@ class Guardian(Module):
         message = {
             "commands": [
                 {
-                    "command": "modifyRole",
+                    "command": "createRole",
                     "rolename": role_name,
                     "acls":
                         [{"acltype": "publishClientSend",
@@ -196,6 +195,22 @@ class Guardian(Module):
         }
         self.client.publish(self.admin_topic, json.dumps(message))
 
+    def create_roles_for_devices(self, devices: t.Sequence[models.Devices]):
+        for _device in devices:
+            device = _device[0]
+            self.create_role(
+                role_name=f"iot_{device.udid}",
+                topics_to_send=[f"collector/{device.udid}",
+                                config.BROKER_DISCOVERY_TOPIC],
+                topics_to_subscribe=[f"discoverer/config/{device.udid}", ],
+                topics_to_receive=[f"discoverer/config/{device.udid}", ]
+            )
+            self.create_client(
+                client_name=f"{device.udid}",
+                client_password=f"{device.udid}",
+                role_name=f"iot_{device.udid}"
+            )
+
     def create_default_clients(self) -> None:
         self.create_client(
             client_name="discovery",
@@ -211,7 +226,7 @@ class Guardian(Module):
 
         self.create_role(
             role_name="discoverer",
-            topics_to_send=[config.BROKER_CONFIGURATION_TOPIC, ],
+            topics_to_send=["discovery/config/#", ],
             topics_to_subscribe=[config.BROKER_DISCOVERY_TOPIC, ],
             topics_to_receive=[config.BROKER_DISCOVERY_TOPIC, ]
         )
@@ -219,7 +234,6 @@ class Guardian(Module):
     def run(self):
         self.create_default_config()
         self.create_default_roles()
-        self.create_anonymous_group()
         self.create_default_clients()
 
 
