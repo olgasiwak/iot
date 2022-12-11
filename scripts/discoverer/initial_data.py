@@ -8,12 +8,13 @@ def initialize_db():
     engine = sqlalchemy.create_engine(config.POSTGRESQL_DB_URL)
     with Session(engine) as session:
         version = models.Versions(id=1, hw_type="v0.1",
-            description="version uno")
+                                  description="version uno")
         client = models.Clients(id=1, name="Park Jordana",
-            description="To ten taki duzy")
+                                description="To ten taki duzy")
         group = models.Groups(id=1, client=client, quantity=5,
-            description="To tam w parku",
-            configuration={"lower_threshold": 0.2, "upper_threshold": 0.85})
+                              description="To tam w parku",
+                              configuration={"lower_threshold": 0.2,
+                                             "upper_threshold": 0.85})
         device_1 = models.Devices(
             id=1,
             udid="agh-123456",
