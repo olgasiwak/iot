@@ -6,3 +6,6 @@ mosquitto:
   ports:
     - 1883:1883
     - 9001:9001
+collector:
+  image: collector
+  container_name: collector
