@@ -34,6 +34,14 @@ def parse_args():
             nargs='?',
             type=str
             )
+
+    group.add_argument(
+        '--rate',
+        help='Set custom rate of detection',
+        nargs='?',
+        type=float
+    )
+
     group.add_argument(
             '--best',
             help='Best possible conditions',
@@ -58,7 +66,12 @@ def determine_weight(args, conditions):
     if args.worst:
         return len(conditions)
     elif args.best:
-        return 5*len(conditions)
+        return 5 * len(conditions)
+    elif args.rate:
+        if 0 <= args.rate <= 1:
+            return args.rate * 5 * len(conditions)
+        else:
+            raise ValueError("Rate has to be in range 0-1")
     else:
         for condition in conditions:
             weight += conditions[condition][eval(f'args.{condition}')]
@@ -89,13 +102,14 @@ def display_states(STATES):
 
 def start_simulator(client, conditions, weight, STATES):
     tmp = weight
+    max_weight = 2 * 3 * len(conditions)
     while True:
         for i in range(config.NUMBER_OF_SENSORS):
             if i in config.DESOLATED_SENSORS:
                 weight /= 2
             choice = choices([1, 0],
-                    weights = [(weight/(2*3*len(conditions))),
-                    1 - (weight/(3*2*len(conditions)))])[0]
+                 weights=[(weight / max_weight),
+                  1 - (weight / max_weight)])[0]
             STATES = update_states(STATES, i, choice)
             client.publish(f"{config.SIMULATOR_SENSORS_PATTERN}{i}", choice)
             weight = tmp
