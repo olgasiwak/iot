@@ -1,0 +1,644 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Collector Executor - IoT Dokumentacja projektu</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#collector_executor" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="IoT Dokumentacja projektu" class="md-header__button md-logo" aria-label="IoT Dokumentacja projektu" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IoT Dokumentacja projektu
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Collector Executor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="IoT Dokumentacja projektu" class="md-nav__button md-logo" aria-label="IoT Dokumentacja projektu" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    IoT Dokumentacja projektu
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Inteligentne oświetlenie miasta
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Collector Executor
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Collector Executor
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-objects" class="md-nav__link">
+    Module Objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Module Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change_lamps_states" class="md-nav__link">
+    change_lamps_states
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_on_signal" class="md-nav__link">
+    send_on_signal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_off_signal" class="md-nav__link">
+    send_off_signal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prepare_topic_name" class="md-nav__link">
+    prepare_topic_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on_connect" class="md-nav__link">
+    on_connect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on_message" class="md-nav__link">
+    on_message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notify_executor" class="md-nav__link">
+    notify_executor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notify_data_to_metric" class="md-nav__link">
+    notify_data_to_metric
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_listening_loop" class="md-nav__link">
+    start_listening_loop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data2metric_documentation/" class="md-nav__link">
+        Data2Metric
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../grafana_documentation/" class="md-nav__link">
+        Grafana
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-objects" class="md-nav__link">
+    Module Objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Module Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change_lamps_states" class="md-nav__link">
+    change_lamps_states
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_on_signal" class="md-nav__link">
+    send_on_signal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_off_signal" class="md-nav__link">
+    send_off_signal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prepare_topic_name" class="md-nav__link">
+    prepare_topic_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on_connect" class="md-nav__link">
+    on_connect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on_message" class="md-nav__link">
+    on_message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notify_executor" class="md-nav__link">
+    notify_executor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notify_data_to_metric" class="md-nav__link">
+    notify_data_to_metric
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_listening_loop" class="md-nav__link">
+    start_listening_loop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<p><a id="components.collector_executor"></a></p>
+<h1 id="collector_executor">collector_executor</h1>
+<p>Moduł odpowiedzialny za zbieranie informacji publikowanych przez sensory na odpowiednich topicach w brokerze mosquitto i sterowanie na ich podstawie zapalaniem lamp.
+Zebrane informacje przekazywane są do modułu data2metric odpowiedzialnego za agregację i archiwizację informacji z sieci.</p>
+<p><a id="components.collector_executor.Module"></a></p>
+<h2 id="module-objects">Module Objects</h2>
+<pre><code class="language-python">class CollectorExecutor()
+</code></pre>
+<p>Moduł odpowiedzialny za zbieranie informacji z sensorów i sterowanie zapalaniem lamp</p>
+<p><a id="components.collector_executor.Module.change_lamps_states"></a></p>
+<h4 id="change_lamps_states">change_lamps_states</h4>
+<pre><code class="language-python">def change_lamps_states(lamp)
+</code></pre>
+<p>Metoda podejmująca decyzję o zaświeceniu lub zgaszeniu lamp na podstawie informacji o stanie sensora</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>lamp</code> (<code>Lamp</code>): Obiekt klasy Lamp() zawierający informację o nazwie topicu grupy lamp i pożądnym stanie (ON/OFF) danej grupy</li>
+</ul>
+<p><a id="components.collector_executor.Module.send_on_signal"></a></p>
+<h4 id="send_on_signal">send_on_signal</h4>
+<pre><code class="language-python">def send_on_signal(lamp_name)
+</code></pre>
+<p>Metoda publikująca informację o konieczności zaświecenia danej grupy lamp, na topic odpowiadający danej grupie lamp</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>lamp_name</code> (<code>String</code>): Nazwa topicu z którego przyszła informacja o konieczności zmiany stanu lamp</li>
+</ul>
+<p><a id="components.collector_executor.Module.send_off_signal"></a></p>
+<h4 id="send_off_signal">send_off_signal</h4>
+<pre><code class="language-python">def send_off_signal(lamp_name)
+</code></pre>
+<p>Metoda publikująca informację o konieczności zgaszenia danej grupy lamp, na topic odpowiadający danej grupie lamp</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>lamp_name</code> (<code>String</code>): Nazwa topicu z którego przyszła informacja o konieczności zmiany stanu lamp</li>
+</ul>
+<p><a id="components.collector_executor.Module.prepare_topic_name"></a></p>
+<h4 id="prepare_topic_name">prepare_topic_name</h4>
+<pre><code class="language-python">def prepare_topic_name(lamp_name)
+</code></pre>
+<p>Metoda wyliczająca nazwę topicu do sterowania daną grupą lamp na podstawie nazwy topicu z którego przyszła informacja o stanie grupy sensorów</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>lamp_name</code> (<code>String</code>): Nazwa topicu z którego przyszła informacja o stanie grupy sensorów  </li>
+</ul>
+<p><a id="components.collector_executor.Module.on_connect"></a></p>
+<h4 id="on_connect">on_connect</h4>
+<pre><code class="language-python">def on_connect(client, userdata, flags, rc)
+</code></pre>
+<p>Metoda wywoływana, gdy broker odpowiada na nasze żądanie połaczenia</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>client</code> (<code>MQTT Client</code>): Instancja klasy Client</li>
+<li><code>userdata</code> (``): Prywatne dane użytkownika określone w Client() lub user_data_set()</li>
+<li><code>flags</code> (``): Flagi odpowiedzi wysyłane przez brokera</li>
+<li><code>rc</code> (<code>int</code>): wynik połączenia 0: Połączenie pomyślne 1: Połączenie odrzucone - niewłaściwa wersja protokołu 2: Połączenie odrzucone - nieprawidłowy identyfikator klienta 3: Połączenie odrzucone - serwer niedostępny 4: Połączenie odrzucone - zła nazwa użytkownika lub hasło 5: Połączenie odrzucone - brak autoryzacji 6-255: Obecnie nieużywane.</li>
+</ul>
+<p><a id="components.collector_executor.Module.on_message"></a></p>
+<h4 id="on_message">on_message</h4>
+<pre><code class="language-python">def on_message(client, userdata, msg)
+</code></pre>
+<p>Wywoływana, gdy odebrano wiadomość na topic subskrybowany przez klienta</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>client</code> (<code>MQTT Client</code>): Instancja klasy Client</li>
+<li><code>userdata</code> (``): Prywatne dane użytkownika określone w CLient() lub user_data_set()</li>
+<li><code>msg</code> (``): Instancja MQTTMessage</li>
+</ul>
+<p><a id="components.collector_executor.Module.notify_executor"></a></p>
+<h4 id="notify_executor">notify_executor</h4>
+<pre><code class="language-python">def notify_executor(lamp)
+</code></pre>
+<p>Metoda wysyłająca informację do executora w celu przełączenia stanu lampy na podstawie informacji z czujników</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>lamp</code> (<code>Lamp</code>): Obiekt klasy Lampy() z informacją o nazwie topicu na który publikuje dana grupa sensorów i stanie grupy sensorów (obecność lub brak ruchu)</li>
+</ul>
+<p><a id="components.collector_executor.Module.notify_data_to_metric"></a></p>
+<h4 id="notify_data_to_metric">notify_data_to_metric</h4>
+<pre><code class="language-python">def notify_data_to_metric(states, polling_cycle)
+</code></pre>
+<p>Metoda wysyłająca informacje o stanie sensorów do modułu data2metric</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>states</code> (<code>int</code>): Stan sensorów (0/1)</li>
+<li><code>polling_cycle</code> (<code>int</code>): Okres czasu co jaki informacje o stanie sensorów powinny być zapisywane</li>
+</ul>
+<p><a id="components.collector_executor.Module.main"></a></p>
+<h4 id="start_listening_loop">start_listening_loop</h4>
+<pre><code class="language-python">def start_listening_loop()
+</code></pre>
+<p>Główna metoda konfigurująca klienta Paho MQTT i rozpoczynająca nasłuch informacji od sensorów na odpowiednich topicach</p>
+<p><a id="components.config"></a></p>
+<p><a id="components.lamp"></a></p>
+<h1 id="lamp">Lamp</h1>
+<p><a id="components.lamp.LampState"></a></p>
+<h2 id="lampstate-objects">LampState Objects</h2>
+<pre><code class="language-python">class LampState(int, Enum)
+</code></pre>
+<p>Enum zawierający reprezentację możliwych stanów lamp ON - 1, OFF - 0</p>
+<p><a id="components.lamp.Lamp"></a></p>
+<h2 id="lamp-objects">Lamp Objects</h2>
+<pre><code class="language-python">class Lamp()
+</code></pre>
+<p>Klasa będąca reprezentacją grupy lamp/sensorów</p>
+<p><a id="components.lamp.Lamp.__init__"></a></p>
+<h4 id="__init__">__init__</h4>
+<pre><code class="language-python">def __init__(name: str, state: LampState) -&gt; None
+</code></pre>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>name</code> (<code>String</code>): Nazwa grupy lamp</li>
+<li><code>state</code> (<code>LampState</code>): Stan lamp ON/OFF</li>
+</ul>
+<h1 id="config">config</h1>
+<p>Plik zawierający parametry konfiguracyjne dla modułu collector_executor</p>
+<ul>
+<li><code>MQTT_ADDRESS</code> - Adres brokera MQTT</li>
+<li><code>MQTT_PORT</code> - Port na którym uruchominoy jest broker MQTT</li>
+<li><code>MQTT_TIMEOUT</code> - Wartość limitu czasu utrzymywania aktywności dla klienta</li>
+<li><code>ENCODING</code> - Kodowanie znaków</li>
+<li><code>BACKUP_STATEFILE</code> - Nazwa pliku do którego zrzucany jest ostatni znany stan sieci w sytuacji zatrzymania działani programu</li>
+<li><code>TOPIC_SENSORS_COLLECTOR_REGEX</code> - Regex nazw topiców na których publikują sensory</li>
+<li><code>TOPIC_EXECUTOR_SENSORS_REGEX</code> - Regex nazw topiców na które subskrybują się lampy</li>
+<li><code>INFLUX_ORG</code> - Nazwa organizacji w InfluxDB</li>
+<li><code>INFLUX_URL</code> - Adres InfluxDB</li>
+<li><code>INFLUX_BUCKET</code> - Nazwa bucketa w InfluxDB</li>
+<li><code>INFLUX_TOKEN</code> - Lokalizacja tokenu do połączenia się z bazą InfluxDB</li>
+<li><code>DATA2METRIC_POLLING_CYCLE</code> - Okres czasu co jaki zapisywane są informacje o stanie sieci</li>
+<li><code>logger</code> - Konfiguracja loggera</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Inteligentne oświetlenie miasta" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Inteligentne oświetlenie miasta
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../data2metric_documentation/" class="md-footer__link md-footer__link--next" aria-label="Next: Data2Metric" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Data2Metric
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>
