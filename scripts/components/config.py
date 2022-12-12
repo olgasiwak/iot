@@ -3,8 +3,10 @@ import logging
 import sys
 import os
 
+""" Plik zawierający parametry konfiguracyjne dla modułu collector_executor
+"""
 # This one is for baremetal
-# MQTT_ADDRESS = socket.gethostbyname(socket.gethostname())
+MQTT_ADDRESS = socket.gethostbyname(socket.gethostname())
 # This one is for dockerized version
 # MQTT_ADDRESS = 172.17.0.2
 MQTT_PORT = 1883

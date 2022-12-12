@@ -14,12 +14,26 @@ class InfluxClient():
                                                      )
 
     def prepare_single_sensor_datapoints(self, states):
+        """ Metoda przygotowywyująca punkt pomiarowe (Point) z informację o stanie pojedynczej grupy sensorów
+
+        :param states: Informacja o stanie grupy sensorów
+        :type states: array(int)
+        :return:
+        :rtype:
+        """
         for state in states:
             states[state] = int(states[state])
         points = [Point(f'sensor{sensor[-1:]}').field('is_active', states[sensor]) for sensor in states]
         return points
 
     def prepare_active_lanterns_ratio_datapoint(self, states):
+        """ Metoda przygotowywyująca punkt pomiarowe (Point) z informację o stosunku włączonych do wyłączonych sensorów
+
+        :param states: Stany sensorów
+        :type states: array(int)
+        :return:
+        :rtype:
+        """
         for state in states:
             states[state] = int(states[state])
         point = (
@@ -29,6 +43,13 @@ class InfluxClient():
         return point
 
     def write_to_database(self, points):
+        """ Metoda zapisująca stworzone punkty pomiarowe (Point) do bazy danych
+
+        :param points: Punkty pomiarowe (Obiekty klasy Point())
+        :type points: Point()
+        :return:
+        :rtype:
+        """
         write_api = self.client.write_api(write_options=SYNCHRONOUS)
         for point in points:
             write_api.write(
