@@ -1,0 +1,14 @@
+site_name: IoT Dokumentacja projektu
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
+
+
+nav:
+  - index.md
+  - Collector Executor: collector_executor_documentation.md
+  - Data2Metric: data2metric_documentation.md
+  - Grafana: grafana_documentation.md
