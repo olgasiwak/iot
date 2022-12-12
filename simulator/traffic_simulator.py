@@ -69,7 +69,7 @@ def determine_weight(args, conditions):
         return 5 * len(conditions)
     elif args.rate:
         if 0 <= args.rate <= 1:
-            return args.rate * 5 * len(conditions)
+            return args.rate * 6 * len(conditions)
         else:
             raise ValueError("Rate has to be in range 0-1")
     else:
