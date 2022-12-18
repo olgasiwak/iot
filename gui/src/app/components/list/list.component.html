@@ -1,0 +1,31 @@
+<app-header></app-header>
+<div class="table-container">
+<table *ngIf="devices && groups" class="table">
+    <thead>
+      <tr>
+        <th scope="col">Grupa</th>
+        <th scope="col">Sensory</th>
+        <th scope="col">Poziom rozświetlenia</th>
+        <th scope="col"></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let group of groups; let i = index">
+        <th scope="row">Grupa {{group.id}}</th>
+        <td><div *ngFor="let grouped of devices">
+          <div *ngIf="grouped.group_id == group.id" class="sensors-name">{{grouped.udid}}</div></div></td>
+        <td>      
+            <div *ngIf="shownId != group.id" class="level-value">{{group.configuration.upper_threshold*100}}%</div>
+            <div *ngIf="shownId == group.id" class="custom-slider">
+            <ngx-slider [(value)]="sliderValue" [options]="options" id="slider{{i}}"></ngx-slider>
+            </div></td>
+        <td>    
+            <button *ngIf="!changeLevel" class="change-level" (click)="clickChange(group.id)">Zmień</button>
+            <button *ngIf="changeLevel" class="change-level" (click)="saveChanges(group.id)">Zapisz</button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
