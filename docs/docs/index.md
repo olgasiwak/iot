@@ -17,7 +17,7 @@ Poniżej znajduje się schemat architektury systemu. Całość składa się z 10
 - time series DB - baza InfluxDB z informacjami odnosnie funkcjonowania sieci
 - assets DB - baza Postgress zawierająca informacje o urządzeniach znajdujących się w sieci
 - grafan - instancja narzędzia Grafana zawiejrająca wizualizację wszystkich danych zbieranych przez system
+- api - REST API do komunikacji Assets DB - wyświetlanie i modyfikacja danych
 - aplikacja webowa - aplikacja dostepna z poziomu przegladarki pozwalająca na sterowanie ustawieniami lamp
-- api - backend powyższej aplikacji webowej
 
 ![Screenshot](img/Architecture.PNG)
