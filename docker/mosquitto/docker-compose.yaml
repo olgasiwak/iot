@@ -3,6 +3,8 @@ mosquitto:
   container_name: mosquitto
   volumes:
     - /etc/mosquitto:/mosquitto/config
+    - mosquitto.conf:/etc/mosquitto/mosquitto.conf
+    - dynamic-security.json:/etc/mosquitto/dynamic-security.json
   ports:
     - 1883:1883
     - 9001:9001
