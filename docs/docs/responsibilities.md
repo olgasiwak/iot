@@ -21,9 +21,11 @@
 
 ## Arkadiusz Chudy
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
+- Przygotowanie API wraz z dokumentacją, uruchomienie w kontenerze Docker
+- Uruchomienie infrastruktury projektu (maszyny wirtualne w chmurze) i tego automatyzacja
+- Przygotowanie podstawowej specyfikacji architektury - używanych komponentów do backendu
+- Uruchomienie w kontenerach i automatyzacja narzędzi: PostgreSQL wraz z inicjalizacją bazy, Grafana, InfluxDB
+- Spopulowanie AssetDB przykładowymi danymi wg specyfikacji frontendu
 
 ## Mykyta Muravytskyi
 
