@@ -1,5 +1,28 @@
 # API
 
+- [API](#api)
+  * [Opis](#opis)
+  * [Endpointy](#endpointy)
+    + [GET `/client/{id}/`](#get---client--id---)
+    + [GET `/clients/`](#get---clients--)
+    + [GET `/group/{id}/`](#get---group--id---)
+    + [PUT `/group/{id}/`](#put---group--id---)
+    + [GET `/groups/`](#get---groups--)
+    + [GET `/version/{id}/`](#get---version--id---)
+    + [GET `/versions/`](#get---versions--)
+    + [GET `/device/{id}/`](#get---device--id---)
+    + [GET `/devices/`](#get---devices--)
+    + [Przykładowe polecenia CURL do API](#przyk-adowe-polecenia-curl-do-api)
+      - [Przykładowy GET](#przyk-adowy-get)
+      - [Przykładowy PUT](#przyk-adowy-put)
+  * [Kod, który tworzy API:](#kod--kt-ry-tworzy-api-)
+    + [`database.py` - połączenie do Asset DB](#-databasepy----po--czenie-do-asset-db)
+    + [`models.py` - modele obiektów w bazie](#-modelspy----modele-obiekt-w-w-bazie)
+    + [`schemas.py` - schematy interakcji z obiektami](#-schemaspy----schematy-interakcji-z-obiektami)
+    + [`crud.py` - definicja operacji CRUD-owych](#-crudpy----definicja-operacji-crud-owych)
+    + [`main.py` - definicja endpointów i uruchomienie API](#-mainpy----definicja-endpoint-w-i-uruchomienie-api)
+  * [Uruchomienie API](#uruchomienie-api)
+
 ## Opis
 API zostało przygotowane w celu łatwego dostępu do Asset DB - do czytania wartości w bazie danych i modyfikacji wartości rozświetlenia.
 
