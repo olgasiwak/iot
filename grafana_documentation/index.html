@@ -402,12 +402,16 @@
 
 
 <h1 id="grafana">Grafana</h1>
-<p>Do wizualizacji informacji odnośnie stanu sieci rozważano kilka najpopularniejszych rozwiązań m.in:
-- Power BI - w przypadku którego problemem okazało się odświeżanie danych zaledwie raz dziennie oraz brak wsparcia
-dla wszystkich źródeł danych  używanych w systemie.</p>
+<p>Do wizualizacji informacji odnośnie stanu sieci rozważano kilka najpopularniejszych rozwiązań m.in:</p>
 <ul>
-<li>Kibana - która pomimo posiadania wielu zalet wymagałaby uruchomienia w systemie instancji Elasticsearch oraz nie posiada
-wbudowanego mechanizmu generowania alertów, co wiązałoby się z konieczności instalacji dodatkowych narzędzi w systemie.</li>
+<li>
+<p>Power BI - w przypadku którego problemem okazało się odświeżanie danych zaledwie raz dziennie oraz brak wsparcia
+dla wszystkich źródeł danych  używanych w systemie.</p>
+</li>
+<li>
+<p>Kibana - która pomimo posiadania wielu zalet wymagałaby uruchomienia w systemie instancji Elasticsearch oraz nie posiada
+wbudowanego mechanizmu generowania alertów, co wiązałoby się z konieczności instalacji dodatkowych narzędzi w systemie.</p>
+</li>
 </ul>
 <p>Dlatego też ostatecznie do wizualizacji wykorzystaliśmy narzędzie o nazwie Grafana. Posiada ona wsparcie dla wymaganych źródeł danych,
 wbudowany system generowania alertów i jest udostępniana na licencji umożliwiającej użycie jej w naszym projekcie bez ponoszenia dodatkowych
@@ -432,12 +436,14 @@ możliwość dodania adnotacji do konkretnego fragmentu wykresu.</p>
 <p>Widok historii stanów poszczególnych grup sensorów:
 <img alt="Screenshot" src="../img/grafana_documentation/Sensors_activity_history.PNG" /></p>
 <h3 id="ustawienia-sensorowlamp">Ustawienia sensorów/lamp</h3>
-<p>Tabela zawiera informacje na temat ustawień poszczególnych urządzeń w sieci. Pojedynczy wiersz zawiera:
-- informacje na temat wartości jednoznacznie identyfikujących dane urządzenie, takich jak ID, UDID oraz adres MAC
-- informacje odnoście lokalizacji danego urządzenia (longitude, latitude)
-- numer wersji urządzenia
-- ustawienia jasności lampy przypisanej do danego urządzenia - wartości do jakich dana lampa się rozjaśnia/przygasza (wraz z wizualną reprezentacją)
-- identyfikatora grupy, do której należy dane urządzenie - Device group ID</p>
+<p>Tabela zawiera informacje na temat ustawień poszczególnych urządzeń w sieci. Pojedynczy wiersz zawiera:</p>
+<ul>
+<li>informacje na temat wartości jednoznacznie identyfikujących dane urządzenie, takich jak ID, UDID oraz adres MAC</li>
+<li>informacje odnoście lokalizacji danego urządzenia (longitude, latitude)</li>
+<li>numer wersji urządzenia</li>
+<li>ustawienia jasności lampy przypisanej do danego urządzenia - wartości do jakich dana lampa się rozjaśnia/przygasza (wraz z wizualną reprezentacją)</li>
+<li>identyfikatora grupy, do której należy dane urządzenie - Device group ID</li>
+</ul>
 <p>Zapytanie w języku SQL pobierające odpowiednie dane z bazy Postgress:</p>
 <pre><code class="language-sql">SELECT
   devices.id,devices.UDID,devices.MAC,devices.longitude,devices.latitude,devices.version_id,groups.configuration -&gt; 'lower_threshold' AS lower_bound, groups.configuration -&gt; 'upper_threshold' AS upper_bound, devices.group_id 
@@ -458,12 +464,14 @@ INNER JOIN groups ON groups.id=devices.group_id;
 <p>Widok miernika z procentem aktywnych sensorów:
 <img alt="Screenshot" src="../img/grafana_documentation/Currently_active_sensors.PNG" /></p>
 <h3 id="ustawienia-grupy-sensorow">Ustawienia grupy sensorów</h3>
-<p>Tabela zawiera informacje o konfiguracji grupy sensorów. Pojedynczy wiersz zawiera:
-- ID - jednoznacznie identyfikujące grupę urządzeń
-- Description - z opisem dotyczącym danej grupy
-- Client ID - identyfikujące klienta, do którego należy dany grupa urządzeń
-- ustawienia jasności lamp należących do danej grupy  - wartości, do jakich dana grupa lamp się rozjaśnia/przygasza (wraz z wizualną reprezentacją)
-- liczba urządzeń w danej grupie</p>
+<p>Tabela zawiera informacje o konfiguracji grupy sensorów. Pojedynczy wiersz zawiera:</p>
+<ul>
+<li>ID - jednoznacznie identyfikujące grupę urządzeń</li>
+<li>Description - z opisem dotyczącym danej grupy</li>
+<li>Client ID - identyfikujące klienta, do którego należy dany grupa urządzeń</li>
+<li>ustawienia jasności lamp należących do danej grupy  - wartości, do jakich dana grupa lamp się rozjaśnia/przygasza (wraz z wizualną reprezentacją)</li>
+<li>liczba urządzeń w danej grupie</li>
+</ul>
 <p>Zapytanie w języku SQL pobierające odpowiednie dane z bazy Postgress:</p>
 <pre><code class="language-sql">SELECT
   id, description, client_id, groups.configuration -&gt; 'lower_threshold' AS lower_bound, groups.configuration -&gt; 'upper_threshold' AS upper_bound, quantity
@@ -491,11 +499,13 @@ zignorowania takiego alarmu.</p>
 określony czas, bo wiemy że np. w tym okresie prowadzone są na nim jakieś naprawy)
 <img alt="Screenshot" src="../img/grafana_documentation/Silences_settings.PNG" /></p>
 <h3 id="mapa">Mapa</h3>
-<p>Mapa zawiera informacje o lokalizacji każdego sensora w sieci. Po wybraniu konkretnego sensora otrzymujemy informacje:
-- o jego współrzędnych geograficznych,
-- identyfikatorach urządzenia
-- identyfikatora grupy urządzeń
-- ustawieniach poziomów jasności lampy</p>
+<p>Mapa zawiera informacje o lokalizacji każdego sensora w sieci. Po wybraniu konkretnego sensora otrzymujemy informacje:</p>
+<ul>
+<li>o jego współrzędnych geograficznych,</li>
+<li>identyfikatorach urządzenia</li>
+<li>identyfikatora grupy urządzeń</li>
+<li>ustawieniach poziomów jasności lampy</li>
+</ul>
 <p>Zapytanie w języku SQL pobierające odpowiednie dane z bazy Postgress:</p>
 <pre><code class="language-sql">SELECT
   devices.latitude, devices.longitude, devices.id,devices.UDID,devices.MAC, devices.group_id, groups.configuration -&gt; 'lower_threshold' AS brightness_lower_bound, groups.configuration -&gt; 'upper_threshold' AS brightness_upper_bound
