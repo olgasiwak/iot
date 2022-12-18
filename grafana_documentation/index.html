@@ -403,7 +403,7 @@ mozliwość dodania adnotacji do konkretnego fragmentu wykresu.</p>
 |&gt; filter(fn: (r) =&gt; r[&quot;_measurement&quot;] =~ /sensor*/ and r._field == &quot;is_active&quot;)
 |&gt; set(key: &quot;_field&quot;, value: &quot;status&quot;)
 </code></pre>
-<p><img alt="Screenshot" src="../img/grafana_documentation/Sensors_activity_history.png" /></p>
+<p><img alt="Screenshot" src="../img/grafana_documentation/Sensors_activity_history.PNG" /></p>
 <h3 id="ustawienia-sensorowlamp">Ustawienia sensorów/lamp</h3>
 <p>Tabela zawiera informacje na temat ustawień poszczególnych urządzeń w sieci. Pojedynczy wiersz zawiera:
 - informacje na temat wartości unikalnie identyfikujących dane urządzenie, takich jak ID, UDID oraz adres MAC
@@ -416,7 +416,7 @@ mozliwość dodania adnotacji do konkretnego fragmentu wykresu.</p>
 FROM devices 
 INNER JOIN groups ON groups.id=devices.group_id;
 </code></pre>
-<p><img alt="Screenshot" src="../img/grafana_documentation/Sensors_settings.png" /></p>
+<p><img alt="Screenshot" src="../img/grafana_documentation/Sensors_settings.PNG" /></p>
 <h3 id="aktualnie-aktywne-sensoryzapalone-latarnie">Aktualnie aktywne sensory/zapalone latarnie</h3>
 <p>Gauge zawierający informację o stosunku aktualnie aktywnych urządzeń, do wszystkich urządzeń, jakie obecnie zainstalowane są w sieci</p>
 <pre><code class="language-flux">from(bucket: &quot;IoT&quot;)
@@ -425,7 +425,7 @@ INNER JOIN groups ON groups.id=devices.group_id;
 |&gt; yield(name: &quot;last&quot;)
 
 </code></pre>
-<p><img alt="Screenshot" src="../img/grafana_documentation/Currently_active_sensors.png" /></p>
+<p><img alt="Screenshot" src="../img/grafana_documentation/Currently_active_sensors.PNG" /></p>
 <h3 id="ustawienia-grupy-sensorow">Ustawienia grupy sensorów</h3>
 <p>Tabela zawiera informacje o konfiguracji grupy sensorów. Pojedynczy wiersz zawiera:
 - ID unikalanie identyfikujące grupę urządzeń
@@ -437,7 +437,7 @@ INNER JOIN groups ON groups.id=devices.group_id;
   id, description, client_id, groups.configuration -&gt; 'lower_threshold' AS lower_bound, groups.configuration -&gt; 'upper_threshold' AS upper_bound, quantity
 FROM groups;
 </code></pre>
-<p><img alt="Screenshot" src="../img/grafana_documentation/Sensors_group_settings.png" /></p>
+<p><img alt="Screenshot" src="../img/grafana_documentation/Sensors_group_settings.PNG" /></p>
 <h3 id="alarmy">Alarmy</h3>
 <p>Tabela zawiera informacje o alarmach ustawionych w sieci i ich stanach. Dla każdej grupy sensorów znajdującej się w sieci sprawdzamy jej aktywność w ciągu ostatnich 24h.
 Jeśli sumaryczny czas świecenia lamp w ciągu ostatniej doby wyniósł 24h, to uznajemy że urządzenie uległa awarii i generujemy
@@ -449,7 +449,7 @@ zignorowania takiego alarmu.</p>
 |&gt; rename(columns: {_measurement: &quot;sensors_groups&quot;})
 
 </code></pre>
-<p><img alt="Screenshot" src="../img/grafana_documentation/Alarms.png" /></p>
+<p><img alt="Screenshot" src="../img/grafana_documentation/Alarms.PNG" /></p>
 <h3 id="mapa">Mapa</h3>
 <p>Mapa zawiera informacje o lokalizacji każdego sensora w sieci. Po wybraniu konkretengo sensora otrzymujemy informacje:
 - o jego współrzędnych geograficznych,
@@ -462,7 +462,7 @@ FROM devices
 INNER JOIN groups ON groups.id=devices.group_id;
 
 </code></pre>
-<p><img alt="Screenshot" src="../img/grafana_documentation/Map.png" /></p>
+<p><img alt="Screenshot" src="../img/grafana_documentation/Map.PNG" /></p>
 
 
 
