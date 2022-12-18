@@ -10,7 +10,7 @@
 
 - Przygotowanie konfiguracji do Grafany wraz z dokumentacją
 - Przygotowanie kodu Executora wraz z dokumentacją
-- Przygotowanie szkieletu dokumnetacji dla projektu i zdeployowanie jej na github pages
+- Przygotowanie szkieletu dokumentacji dla projektu i zdeployowanie jej na github pages
 - Przygotowanie dokumentacji do modułów Collectora i data2metric
 
 ## Patryk Kawa
