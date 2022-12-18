@@ -1,5 +1,5 @@
 mosquitto:
-  image: eclipse-mosquitto
+  image: eclipse-mosquitto:2.0.15
   container_name: mosquitto
   volumes:
     - /etc/mosquitto:/mosquitto/config
