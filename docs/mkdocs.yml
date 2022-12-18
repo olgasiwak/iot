@@ -9,6 +9,7 @@ plugins:
 
 nav:
   - index.md
+  - Podział pracy: responsibilities.md
   - Collector Executor: collector_executor_documentation.md
   - Data2Metric: data2metric_documentation.md
   - Grafana: grafana_documentation.md
