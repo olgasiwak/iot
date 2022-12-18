@@ -1,0 +1,32 @@
+<app-header></app-header>
+<div class="d-flex">
+  <div class="map">
+    <agm-map *ngIf="devices && latitude_map" [zoom]="12" [latitude]="latitude_map" [longitude]="+devices[0].longitude">
+      <agm-marker clickable *ngFor="let device of devices; let i = index" [latitude]="+device.latitude"
+        [longitude]="+device.longitude" (markerClick)="showInfo(device)" [iconUrl]="device.icon"> 
+      </agm-marker>
+    </agm-map>
+  </div>
+  <div *ngIf="info && group" class="sensor-container px-4">
+    <div class="lamp-photo">
+      <img src="./assets/images/lampa.jpeg">
+    </div>
+    <div class="mt-5">
+      <div class="value">Grupa {{group.id}}</div>
+    </div>
+    <div class="mt-5">
+      <div class="label">Poziom rozświetlenia</div>
+      <div *ngIf="!changeLevel" class="level-value">{{level}}%</div>
+      <div *ngIf="changeLevel" class="custom-slider">
+      <ngx-slider [(value)]="sliderValue" [options]="options"></ngx-slider>
+      </div>
+    </div>
+    <button *ngIf="!changeLevel" class="change-level" (click)="clickChange()">Zmień</button>
+    <button *ngIf="changeLevel" class="change-level" (click)="saveChanges()">Zapisz</button>
+
+    <a class="stats" href="http://139.144.44.134:3000/" target="blank">
+    Zobacz statystyki
+    </a>
+</div>
+
+</div>

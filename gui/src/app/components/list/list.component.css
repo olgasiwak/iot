@@ -1,0 +1,66 @@
+.table-container {
+    margin: 2%;
+}
+
+.table > :not(caption) > * > * {
+    padding: 1.2rem 0.5rem;
+    vertical-align: middle;
+}
+
+
+  
+  .lamp-photo  img{
+    width: 30%;
+    height: 10%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgb(156, 156, 156);
+    margin-bottom: 0.5rem;
+  
+  }
+  
+  .value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+  }
+  
+  .level-value {
+    color:rgb(16, 100, 255);
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin: auto;
+  }
+  
+  .change-level {
+    border-radius: 24px;
+    background-color: rgb(46, 119, 255);
+    padding: 0.4rem 1.2rem;
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+    border: none;
+  }
+  
+  .stats {
+    font-size: 1.2rem;
+    color: rgb(16, 100, 255);
+    position: absolute;
+    bottom: 5%;
+    right: 1%;
+  }
+  
+  .ngx-slider .ngx-slider-pointer {
+    background-color: red !important;
+  }
+
+  .sensors-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgb(156, 156, 156);
+  }
