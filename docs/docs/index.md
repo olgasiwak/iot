@@ -7,7 +7,7 @@ Rozwiązanie znacząco wpłynie na pobór energii elektrycznej przez system ośw
 Wyeliminowana zostanie nadmiarowość  naświetlania ulic, zmniejszając zanieczyszczanie światłem. 
 Główną funkcjonalnością systemu jest wykrywanie ruchu pieszego, które będzie zintegrowane z oświetleniem miejskim. 
 
-Poniżej znajduje się schemat architektury systemu. Całość składa się z 10 elementów logicznych:
+Poniżej znajduje się schemat architektury systemu. Całość składa się z 12 elementów logicznych:
 
 - grup sensorów na latarniach zbierających informacje o ruchu 
 - collector - moduł odpowiedzialny za zbieranie danych z sensorów
@@ -19,5 +19,7 @@ Poniżej znajduje się schemat architektury systemu. Całość składa się z 10
 - grafan - instancja narzędzia Grafana zawiejrająca wizualizację wszystkich danych zbieranych przez system
 - api - REST API do komunikacji Assets DB - wyświetlanie i modyfikacja danych
 - aplikacja webowa - aplikacja dostepna z poziomu przegladarki pozwalająca na sterowanie ustawieniami lamp
+- discoverer - moduł obsługujący nowe urządzenia podłączane do systemu
+- guardian - moduł zarządzający dostępem do brokera
 
 ![Screenshot](img/Architecture.PNG)

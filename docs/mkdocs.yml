@@ -10,6 +10,7 @@ plugins:
 nav:
   - index.md
   - Podział pracy: responsibilities.md
+  - Wybór technologii: selected_technologies.md
   - Collector Executor: collector_executor_documentation.md
   - Data2Metric: data2metric_documentation.md
   - Discovery: discoverer_documentation.md
@@ -18,4 +19,4 @@ nav:
   - Generator: generator_documentation.md
   - API: api.md
   - GUI: gui.md
-
+  - Infrastruktura chmurowa: infra.md

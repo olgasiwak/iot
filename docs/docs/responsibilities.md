@@ -3,8 +3,8 @@
 ## Olga Siwak
 
 - Koordynacja zadań
-- Zarządzanie grupą
-- Organizacja spotkań
+- Zarządzanie grupą 
+- Organizacja spotkań 
 - Nadzór dokumentacji
 - Przygotowanie prezentacji efektów pracy zespołu
 - Przygotowanie elementów analizy businessowej
@@ -12,9 +12,10 @@
 ## Sebastian Kulig
 
 - Przygotowanie konfiguracji do Grafany wraz z dokumentacją
-- Przygotowanie kodu Executora wraz z dokumentacją
+- Przygotowanie kodu Executora - implementacja, integracja, testy, dokumentacja
 - Przygotowanie szkieletu dokumentacji dla projektu i zdeployowanie jej na github pages
 - Przygotowanie dokumentacji do modułów Collectora i data2metric
+- Próby zarządzania repozytorium na GitHub (razem z Patrykiem Kawą i Sebastianem Kuligiem)
 
 ## Patryk Kawa
 
@@ -28,10 +29,12 @@
 ## Arkadiusz Chudy
 
 - Przygotowanie API wraz z dokumentacją, uruchomienie w kontenerze Docker
-- Uruchomienie infrastruktury projektu (maszyny wirtualne w chmurze) i tego automatyzacja
+- Uruchomienie infrastruktury projektu (maszyny wirtualne w chmurze) i tego automatyzacja (razem z Patrykiem Kawą)
+- Dokumentacja infrastruktury (razem z Patrykiem Kawą)
 - Przygotowanie podstawowej specyfikacji architektury - używanych komponentów do backendu
 - Uruchomienie w kontenerach i automatyzacja narzędzi: PostgreSQL wraz z inicjalizacją bazy, Grafana, InfluxDB
 - Spopulowanie AssetDB przykładowymi danymi wg specyfikacji frontendu
+- Próby zarządzania repozytorium na GitHub (razem z Patrykiem Kawą i Sebastianem Kuligiem)
 
 ## Mykyta Muravytskyi
 
@@ -47,12 +50,9 @@
 
 ## Daniel Kusiak
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
-
 ## Jakub Bekier
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
+- Analiza rynku
+- Testy funkcjonalności
+- Testy bezpieczeństwa
+- Zbadanie i przykładowa implementacja zabezpieczeń brokera MQTT

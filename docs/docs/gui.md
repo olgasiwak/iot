@@ -77,3 +77,4 @@ Przycisk “Zapisz” pozwala na zapisanie zmian za pomocą metody `saveChanges(
 Widok listy zawiera informacje o grupach i należących do nich sensorów. Działanie przycisku “Zmień” jest takie samo jak w przypadku mapy.
 
 <img width="1505" alt="image" src="https://user-images.githubusercontent.com/44203473/208313625-b8610e4e-3c2e-4926-b5e8-633b5c5ff84d.png">
+

@@ -6,21 +6,27 @@ Zebrane informacje przekazywane są do modułu data2metric odpowiedzialnego za a
 
 <a id="components.collector_executor.Module"></a>
 
-## Module Objects
+## Metody w klasie CollectorExecutor()
 
 ```python
 class CollectorExecutor()
 ```
-Moduł odpowiedzialny za zbieranie informacji z sensorów i sterowanie zapalaniem lamp
+Moduł odpowiedzialny za zbieranie informacji z sensorów i sterowanie zapalaniem lamp.
 
 <a id="components.collector_executor.Module.change_lamps_states"></a>
 
-#### change\_lamps\_states
+#### def change\_lamps\_states
 
 ```python
-def change_lamps_states(lamp)
+def change_lamps_states(lamp):
+        if lamp.state == LampState.on:
+            self.send_on_signal(lamp.name)
+        elif lamp.state == LampState.off:
+            self.send_off_signal(lamp.name)
+        else:
+            config.logger.debug("Wrong message format")
 ```
-Metoda podejmująca decyzję o zaświeceniu lub zgaszeniu lamp na podstawie informacji o stanie sensora
+Metoda podejmująca decyzję o zaświeceniu lub zgaszeniu lamp na podstawie informacji o stanie sensora.
 
 **Arguments**:
 
@@ -28,12 +34,15 @@ Metoda podejmująca decyzję o zaświeceniu lub zgaszeniu lamp na podstawie info
 
 <a id="components.collector_executor.Module.send_on_signal"></a>
 
-#### send\_on\_signal
+#### def send\_on\_signal
 
 ```python
-def send_on_signal(lamp_name)
+def send_on_signal(lamp_name):
+        topic_name = self.prepare_topic_name(lamp_name)
+        config.logger.debug(f'Send on signal to {topic_name}')
+        self.client.publish(topic_name, LampState.on.value)
 ```
-Metoda publikująca informację o konieczności zaświecenia danej grupy lamp, na topic odpowiadający danej grupie lamp
+Metoda publikująca informację o konieczności zaświecenia danej grupy lamp, na topic odpowiadający danej grupie lamp.
 
 **Arguments**:
 
@@ -41,12 +50,15 @@ Metoda publikująca informację o konieczności zaświecenia danej grupy lamp, n
 
 <a id="components.collector_executor.Module.send_off_signal"></a>
 
-#### send\_off\_signal
+#### def send\_off\_signal
 
 ```python
-def send_off_signal(lamp_name)
+def send_off_signal(lamp_name):
+        topic_name = self.prepare_topic_name(lamp_name)
+        config.logger.debug(f'Send off signal to {topic_name}')
+        self.client.publish(topic_name, LampState.off.value)
 ```
-Metoda publikująca informację o konieczności zgaszenia danej grupy lamp, na topic odpowiadający danej grupie lamp
+Metoda publikująca informację o konieczności zgaszenia danej grupy lamp, na topic odpowiadający danej grupie lamp.
 
 **Arguments**:
 
@@ -54,12 +66,14 @@ Metoda publikująca informację o konieczności zgaszenia danej grupy lamp, na t
 
 <a id="components.collector_executor.Module.prepare_topic_name"></a>
 
-#### prepare\_topic\_name
+#### def prepare\_topic\_name
 
 ```python
-def prepare_topic_name(lamp_name)
+def prepare_topic_name(lamp_name):
+        sensor_group_name = re.split("/", lamp_name)[-1]
+        return config.TOPIC_EXECUTOR_SENSORS_REGEX + sensor_group_name
 ```
-Metoda wyliczająca nazwę topicu do sterowania daną grupą lamp na podstawie nazwy topicu z którego przyszła informacja o stanie grupy sensorów
+Metoda wyliczająca nazwę topicu do sterowania daną grupą lamp na podstawie nazwy topicu, z którego przyszła informacja o stanie grupy sensorów.
 
 **Arguments**:
 
@@ -67,12 +81,14 @@ Metoda wyliczająca nazwę topicu do sterowania daną grupą lamp na podstawie n
 
 <a id="components.collector_executor.Module.on_connect"></a>
 
-#### on\_connect
+#### def on\_connect
 
 ```python
-def on_connect(client, userdata, flags, rc)
+def on_connect(client, userdata, flags, rc):
+        config.logger.debug(f'Connected with result code {str(rc)}')
+        self.client.subscribe(config.TOPIC_SENSORS_COLLECTOR_REGEX)
 ```
-Metoda wywoływana, gdy broker odpowiada na nasze żądanie połaczenia
+Metoda wywoływana, gdy broker odpowiada na nasze żądanie połączenia.
 
 **Arguments**:
 
@@ -83,12 +99,23 @@ Metoda wywoływana, gdy broker odpowiada na nasze żądanie połaczenia
 
 <a id="components.collector_executor.Module.on_message"></a>
 
-#### on\_message
+#### def on\_message
 
 ```python
-def on_message(client, userdata, msg)
+def on_message(client, userdata, msg):
+        global LOCK
+        LOCK.acquire()
+        if msg.topic not in STATES:
+            config.logger.debug(f'Adding new sensor group {msg.topic}')
+            STATES[msg.topic] = msg.payload.decode(config.ENCODING)
+        elif STATES[msg.topic] != msg.payload.decode(config.ENCODING):
+            STATES[msg.topic] = msg.payload.decode(config.ENCODING)
+            state = int(STATES[msg.topic])
+            self.notify_executor(Lamp(msg.topic, LampState(state)))
+        config.logger.debug(pprint.pprint(STATES))
+        LOCK.release()
 ```
-Wywoływana, gdy odebrano wiadomość na topic subskrybowany przez klienta
+Wywoływana, gdy odebrano wiadomość na topic subskrybowany przez klienta.
 
 **Arguments**:
 
@@ -98,13 +125,16 @@ Wywoływana, gdy odebrano wiadomość na topic subskrybowany przez klienta
 
 <a id="components.collector_executor.Module.notify_executor"></a>
 
-#### notify\_executor
+#### def notify\_executor
 
 ```python
-def notify_executor(lamp)
+def notify_executor(lamp):
+        config.logger.debug('executor notified')
+        self.change_lamps_states(lamp)
+        pass
 ```
 
-Metoda wysyłająca informację do executora w celu przełączenia stanu lampy na podstawie informacji z czujników
+Metoda wysyłająca informację do executora w celu przełączenia stanu lampy na podstawie informacji z czujników.
 
 **Arguments**:
 
@@ -112,12 +142,30 @@ Metoda wysyłająca informację do executora w celu przełączenia stanu lampy n
 
 <a id="components.collector_executor.Module.notify_data_to_metric"></a>
 
-#### notify\_data\_to\_metric
+#### def notify\_data\_to\_metric
 
 ```python
-def notify_data_to_metric(states, polling_cycle)
+def notify_data_to_metric(states, polling_cycle):
+        global LOCK
+        while True:
+            if not len(states):
+                continue
+            config.logger.debug('data2metric notified')
+            LOCK.acquire()
+            Influx = InfluxClient(config.INFLUX_ORG,
+                                        config.INFLUX_URL,
+                                        config.INFLUX_BUCKET,
+                                        config.INFLUX_TOKEN
+                                        )
+
+            Influx.write_to_database(
+                    Influx.prepare_single_sensor_datapoints(STATES))
+            Influx.write_to_database(
+                    [Influx.prepare_active_lanterns_ratio_datapoint(STATES)])
+            LOCK.release()
+            time.sleep(polling_cycle)
 ```
-Metoda wysyłająca informacje o stanie sensorów do modułu data2metric
+Metoda wysyłająca informacje o stanie sensorów do modułu data2metric.
 
 **Arguments**:
 
@@ -126,12 +174,21 @@ Metoda wysyłająca informacje o stanie sensorów do modułu data2metric
 
 <a id="components.collector_executor.Module.main"></a>
 
-#### start_listening_loop
+#### def start_listening_loop
 
 ```python
-def start_listening_loop()
+def start_listening_loop():
+        self.client.on_connect = self.on_connect
+        self.client.on_message = self.on_message
+        self.client.connect(config.MQTT_ADDRESS, config.MQTT_PORT, config.MQTT_TIMEOUT)
+        try:
+            self.client.loop_forever()
+        except KeyboardInterrupt:
+            with open(config.BACKUP_STATEFILE, 'w') as backup:
+                backup.write(json.dumps(STATES))
+            config.logger.debug('disconnected')
 ```
-Główna metoda konfigurująca klienta Paho MQTT i rozpoczynająca nasłuch informacji od sensorów na odpowiednich topicach
+Główna metoda konfigurująca klienta Paho MQTT i rozpoczynająca nasłuch informacji od sensorów na odpowiednich topicach.
 
 <a id="components.config"></a>
 
@@ -145,20 +202,25 @@ Główna metoda konfigurująca klienta Paho MQTT i rozpoczynająca nasłuch info
 ## LampState Objects
 
 ```python
-class LampState(int, Enum)
+class LampState(int, Enum):
+    on = 1
+    off = 0
 ```
 
-Enum zawierający reprezentację możliwych stanów lamp ON - 1, OFF - 0
+Enum zawierający reprezentację możliwych stanów lamp ON - 1, OFF - 0.
 
 <a id="components.lamp.Lamp"></a>
 
 ## Lamp Objects
 
 ```python
-class Lamp()
+class Lamp():
+    def __init__(self, name: str, state: LampState) -> None:
+        self.name = name
+        self.state = state
 ```
 
-Klasa będąca reprezentacją grupy lamp/sensorów
+Klasa będąca reprezentacją grupy lamp/sensorów.
 
 <a id="components.lamp.Lamp.__init__"></a>
 
@@ -177,7 +239,7 @@ def __init__(name: str, state: LampState) -> None
 # config
 
 
-Plik zawierający parametry konfiguracyjne dla modułu collector_executor
+Plik zawierający parametry konfiguracyjne dla modułu collector_executor.
 
 - `MQTT_ADDRESS` - Adres brokera MQTT
 - `MQTT_PORT` - Port na którym uruchominoy jest broker MQTT
