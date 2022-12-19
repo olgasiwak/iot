@@ -2,9 +2,12 @@
 
 ## Olga Siwak
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
+- Koordynacja zadań
+- Zarządzanie grupą 
+- Organizacja spotkań 
+- Nadzór dokumentacji
+- Przygotowanie prezentacji efektów pracy zespołu
+- Przygotowanie elementów analizy businessowej
 
 ## Sebastian Kulig
 
