@@ -24,6 +24,8 @@ class Module(ABC):
 
 
 class Discoverer(Module):
+    """Discoverer module class"""
+
     def __init__(self):
         logger.debug("Connecting to DB ...")
         try:
@@ -49,6 +51,10 @@ class Discoverer(Module):
         self.guard.run()
 
     def send_configuration(self, device: models.Devices):
+        """
+        Publishes a JSON with configuration to the config topic 
+        of a given device.
+        """
         logger.debug(f"Sending config to {device}...")
         payload: dict = device.group.configuration
 
@@ -58,6 +64,10 @@ class Discoverer(Module):
         )
 
     def on_broker_connect(self, client, userdata, flags, rc):
+        """
+        Handler function that runs after Discoverer establishes connetction to 
+        the broker.
+        """
         logger.debug(f'Connected to broker with result code {str(rc)}')
         self.client.subscribe(config.BROKER_DISCOVERY_TOPIC)
         with self.session as s:
@@ -69,6 +79,10 @@ class Discoverer(Module):
                           client: mqtt.Client,
                           userdata,
                           msg: mqtt.MQTTMessage) -> None:
+        """
+        Handler function that takes care of new messages from the subscribed 
+        topics.
+        """
         try:
             data = msg.payload.decode('utf-8')
         except json.JSONDecodeError:
@@ -82,6 +96,9 @@ class Discoverer(Module):
         p.start()
 
     def handle_hello_message(self, data: dict) -> None:
+        """
+        Identifies devices based on the provided data by quering AssetDB.
+        """
         udid = data["udid"]
         mac = data["mac"]
         with self.session as s:
@@ -105,6 +122,12 @@ class Discoverer(Module):
 
 
 class Guardian(Module):
+    """Guardian module class
+
+    It authorizes using admin passes and publishes on special config topic
+    for dynamic security plugin.
+    """
+
     def __init__(self):
         self.client = mqtt.Client(client_id="Guardian")
         # self.client.enable_logger(logger)
@@ -118,6 +141,9 @@ class Guardian(Module):
                     topics_to_send: t.Sequence[str] = [],
                     topics_to_subscribe:  t.Sequence[str] = [],
                     topics_to_receive:  t.Sequence[str] = []):
+        """
+        Creates a new role with provided name and ACLs per topic.
+        """
         message = {
             "commands": [
                 {
@@ -140,6 +166,9 @@ class Guardian(Module):
         self.client.publish(self.admin_topic, json.dumps(message))
 
     def create_default_config(self):
+        """
+        Configures default broker ACLs with zero trust policy.
+        """
         message = {
             "commands": [
                 {
@@ -157,6 +186,10 @@ class Guardian(Module):
 
     def create_client(self, client_name: str,
                       client_password: str, role_name: str):
+        """
+        Creates a dynamic security client with a given name,
+        password and assigns to the specified role.
+        """
         message = {
             "commands": [
                 {
@@ -172,6 +205,10 @@ class Guardian(Module):
         self.client.publish(self.admin_topic, json.dumps(message))
 
     def create_anonymous_group(self):
+        """
+        Not used.
+        Creates an anonymous group to which each unidentified client is assigned.
+        """
         message = {
             "commands": [
                 {
@@ -196,6 +233,9 @@ class Guardian(Module):
         self.client.publish(self.admin_topic, json.dumps(message))
 
     def create_roles_for_devices(self, devices: t.Sequence[models.Devices]):
+        """
+        Creates ACLs for the provided devices.
+        """
         for _device in devices:
             device = _device[0]
             self.create_role(
@@ -212,6 +252,9 @@ class Guardian(Module):
             )
 
     def create_default_clients(self) -> None:
+        """
+        Creates default dynamic security clients.
+        """
         self.create_client(
             client_name="discovery",
             client_password="discovery",
@@ -219,6 +262,9 @@ class Guardian(Module):
         )
 
     def create_default_roles(self) -> None:
+        """
+        Creates default roles.
+        """
         self.create_role(
             role_name="default_restricted",
             topics_to_send=[config.BROKER_DISCOVERY_TOPIC, ],
