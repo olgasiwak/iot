@@ -1,4 +1,4 @@
-# Podział prac na projektem
+# Podział prac nad projektem
 
 ## Olga Siwak
 
