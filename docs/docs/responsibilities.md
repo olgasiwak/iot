@@ -35,9 +35,11 @@
 
 ## Sylwia Kantor
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
+- Przeprowadzenie wywiadów z interesariuszami
+- Przygotowanie person
+- Zaprojektowanie GUI
+- Implementacja GUI
+- Integracja GUI z API i przygotowanie dokumentacji
 
 ## Daniel Kusiak
 
