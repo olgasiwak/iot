@@ -22,4 +22,4 @@ Poniżej znajduje się schemat architektury systemu. Całość składa się z 12
 - discoverer - moduł obsługujący nowe urządzenia podłączane do systemu
 - guardian - moduł zarządzający dostępem do brokera
 
-![Screenshot](img/Architecture.PNG)
+![Screenshot](img/Architecture.png)
