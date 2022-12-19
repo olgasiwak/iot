@@ -27,9 +27,7 @@
 
 ## Mykyta Muravytskyi
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
+- Implementacja modułów **Discoverer** i **Guardian**
 
 ## Sylwia Kantor
 

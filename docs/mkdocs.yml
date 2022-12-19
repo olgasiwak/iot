@@ -12,4 +12,6 @@ nav:
   - Podział pracy: responsibilities.md
   - Collector Executor: collector_executor_documentation.md
   - Data2Metric: data2metric_documentation.md
+  - Discovery: discoverer_documentation.md
+  - Guardain: guardian_documentation.md
   - Grafana: grafana_documentation.md
