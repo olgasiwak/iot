@@ -16,5 +16,6 @@ nav:
   - Guardain: guardian_documentation.md
   - Grafana: grafana_documentation.md
   - Generator: generator_documentation.md
+  - API: api.md
   - GUI: gui.md
 
