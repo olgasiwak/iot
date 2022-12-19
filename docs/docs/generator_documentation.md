@@ -130,7 +130,7 @@ def determine_weight(args, conditions):
     return weight
 ```
 
-## def updata_states(STATES, sensor, choice)
+### def updata_states(STATES, sensor, choice)
 
 Funkcja przygotowująca wartości (stany czujnika) `1` i `0` do wysłania do brokera MQTT oraz zliczająca statystyki.
 
@@ -145,7 +145,7 @@ def update_states(STATES, sensor, choice):
     return STATES
 ```
 
-## def display_states(STATES)
+### def display_states(STATES)
 
 Funkcja wyświetlająca na STDOUT informacje o danej iteracji generowania danych. Stosuje kolorowe wyświetlanie stanów.
 
@@ -165,7 +165,7 @@ def display_states(STATES):
     print('\n')
 ```
 
-## def start_simulator(client, conditions, weight, STATES)
+### def start_simulator(client, conditions, weight, STATES)
 
 Funkcja startująca symulację, losująca wartości stanu oraz wysyłająca wiadomości co 4 sekundy do broketa MQTT.
 
@@ -200,7 +200,6 @@ def main():
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-    client.username_pw_set('admin-user', 'password')
     client.connect(
             config.MQTT_ADDRESS,
             config.MQTT_PORT,
@@ -223,3 +222,4 @@ Narzędzie zawiera plik konfiguracyjny zawierający następujące parametry:
 - `WEIGHTS_FILE` - Plik zawierający wagi
 - `NUMBER_OF_SENSORS` - Liczba sensorów dla których będziemy generować ruch
 - `DESOLATED_SENSORS` - Lista sensorów dla których zaniżymy generowany ruch, mogą "symulować" sensory zepsute
+
