@@ -48,11 +48,11 @@
 - Implementacja GUI
 - Integracja GUI z API i przygotowanie dokumentacji
 
-## Daniel Kusiak
-
 ## Jakub Bekier
 
 - Analiza rynku
 - Testy funkcjonalności
 - Testy bezpieczeństwa
 - Zbadanie i przykładowa implementacja zabezpieczeń brokera MQTT
+
+## Daniel Kusiak
