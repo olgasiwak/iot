@@ -14,3 +14,4 @@ nav:
   - Data2Metric: data2metric_documentation.md
   - Grafana: grafana_documentation.md
   - API: api.md
+  - GUI: gui.md
