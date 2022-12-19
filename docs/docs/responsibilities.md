@@ -52,6 +52,7 @@
 
 ## Jakub Bekier
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
+- Analiza rynku
+- Testy funkcjonalności
+- Testy bezpieczeństwa
+- Zbadanie i przykładowa implementacja zabezpieczeń brokera MQTT
