@@ -2,9 +2,12 @@
 
 ## Olga Siwak
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
+- Koordynacja zadań
+- Zarządzanie grupą
+- Organizacja spotkań
+- Nadzór dokumentacji
+- Przygotowanie prezentacji efektów pracy zespołu
+- Przygotowanie elementów analizy businessowej
 
 ## Sebastian Kulig
 
@@ -15,9 +18,12 @@
 
 ## Patryk Kawa
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
+- Przygotowanie pierwszej wersji architektury systemu
+- Przygotowanie proof-of-concept wykorzystania protokołu MQTT w komunikacji na linii hardware - software
+- Przeprowadzenie skryptu automatyzującego budowanie infrastruktury (razem z Arkiem Chudym)
+- Przygotowanie modułu collector - implementacja, integracja, wielowątkowość, konteneryzacja
+- Przygotowanie modułu data2metric - implementacja, integracja, konteneryzacja
+- Przygotowanie generatora ruchu (razem z Kubą Bekierem) - implementacja, dokumentacja
 
 ## Arkadiusz Chudy
 
@@ -29,9 +35,7 @@
 
 ## Mykyta Muravytskyi
 
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
+- Implementacja modułów **Discoverer** i **Guardian**
 
 ## Sylwia Kantor
 
