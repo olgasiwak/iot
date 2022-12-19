@@ -222,3 +222,4 @@ Narzędzie zawiera plik konfiguracyjny zawierający następujące parametry:
 - `WEIGHTS_FILE` - Plik zawierający wagi
 - `NUMBER_OF_SENSORS` - Liczba sensorów dla których będziemy generować ruch
 - `DESOLATED_SENSORS` - Lista sensorów dla których zaniżymy generowany ruch, mogą "symulować" sensory zepsute
+
