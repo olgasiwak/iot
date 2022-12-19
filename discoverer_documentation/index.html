@@ -13,7 +13,7 @@
     
     
       
-        <title>Data2Metric - IoT Dokumentacja projektu</title>
+        <title>Discovery - IoT Dokumentacja projektu</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data2metric" class="md-skip">
+        <a href="#discoverer" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Data2Metric
+              Discovery
             
           </span>
         </div>
@@ -193,6 +193,21 @@
 
   
   
+  
+    <li class="md-nav__item">
+      <a href="../data2metric_documentation/" class="md-nav__link">
+        Data2Metric
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -205,12 +220,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Data2Metric
+          Discovery
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Data2Metric
+        Discovery
       </a>
       
         
@@ -229,30 +244,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#influxclient-objects" class="md-nav__link">
-    InfluxClient Objects
+  <a href="#abstract" class="md-nav__link">
+    Abstract
   </a>
   
-    <nav class="md-nav" aria-label="InfluxClient Objects">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zalenosci" class="md-nav__link">
+    Zaleności
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    Known issues
+  </a>
+  
+    <nav class="md-nav" aria-label="Known issues">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prepare_single_sensor_datapoints" class="md-nav__link">
-    prepare_single_sensor_datapoints
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#prepare_active_lanterns_ratio_datapoint" class="md-nav__link">
-    prepare_active_lanterns_ratio_datapoint
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write_to_database" class="md-nav__link">
-    write_to_database
+  <a href="#todo" class="md-nav__link">
+    TODO
   </a>
   
 </li>
@@ -266,21 +281,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../discoverer_documentation/" class="md-nav__link">
-        Discovery
-      </a>
     </li>
   
 
@@ -357,30 +357,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#influxclient-objects" class="md-nav__link">
-    InfluxClient Objects
+  <a href="#abstract" class="md-nav__link">
+    Abstract
   </a>
   
-    <nav class="md-nav" aria-label="InfluxClient Objects">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zalenosci" class="md-nav__link">
+    Zaleności
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    Known issues
+  </a>
+  
+    <nav class="md-nav" aria-label="Known issues">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prepare_single_sensor_datapoints" class="md-nav__link">
-    prepare_single_sensor_datapoints
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#prepare_active_lanterns_ratio_datapoint" class="md-nav__link">
-    prepare_active_lanterns_ratio_datapoint
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write_to_database" class="md-nav__link">
-    write_to_database
+  <a href="#todo" class="md-nav__link">
+    TODO
   </a>
   
 </li>
@@ -405,38 +405,48 @@
                   
 
 
-<h1 id="data2metric">data2metric</h1>
-<p><a id="components.data2metric.InfluxClient"></a></p>
-<h2 id="influxclient-objects">InfluxClient Objects</h2>
-<pre><code class="language-python">class InfluxClient()
-</code></pre>
-<p><a id="components.data2metric.InfluxClient.prepare_single_sensor_datapoints"></a></p>
-<h4 id="prepare_single_sensor_datapoints">prepare_single_sensor_datapoints</h4>
-<pre><code class="language-python">def prepare_single_sensor_datapoints(states)
-</code></pre>
-<p>Metoda przygotowywyująca punkt pomiarowe (Point) z informację o stanie pojedynczej grupy sensorów</p>
-<p><strong>Arguments</strong>:</p>
+<h1 id="discoverer">Discoverer</h1>
+<p>Moduł <strong>Discoverer</strong> ma na celu obsługiwać nowe urządzenia IoT podłączane do systemu. Do jego funkcjonalności należą:</p>
 <ul>
-<li><code>states</code> (<code>array(int)</code>): Informacja o stanie grupy sensorów</li>
+<li>Identyfikacja urządzenia,</li>
+<li>Zlecenie skonfigurowania dostępu do <strong>brokera</strong>,</li>
+<li>Skonfigurowanie nowego urządzenia.</li>
 </ul>
-<p><a id="components.data2metric.InfluxClient.prepare_active_lanterns_ratio_datapoint"></a></p>
-<h4 id="prepare_active_lanterns_ratio_datapoint">prepare_active_lanterns_ratio_datapoint</h4>
-<pre><code class="language-python">def prepare_active_lanterns_ratio_datapoint(states)
+<h2 id="abstract">Abstract</h2>
+<p><strong>Discoverer</strong> nasłuchuje na nowe zgłoszenia na topiku zefiniowanym jako <code>BROKER_DISCOVERY_TOPIC</code>. Podłączające się do systemu nowe urządzenie wysyła zapytanie na ww. topik. Każde nowe zgłoszenie jest obsługiwane w osobnym wątku.</p>
+<blockquote>
+<p><strong>Uwaga:</strong>
+Z powodu GIL'a Python <em>de facto</em> nie zrównolegla zadań, co w przyszłości może powodować problem z wydajnością. Porponowane rozwiązanie to zmiana na async albo Go ;)</p>
+</blockquote>
+<p>Każde zgłoszenie - <code>hello_message</code> musi zawierać informacje niezbędne do zidentyfikowania urządzenia: <code>MAC address</code> oraz unikalny identyfikator w systemie - <code>UDID</code>, ułożone w struktue formatu JSON:</p>
+<pre><code class="language-json">{
+    &quot;mac&quot;: &lt;str: MAC address&gt;,
+    &quot;udid&quot;: &lt;str: UDID&gt;
+}
 </code></pre>
-<p>Metoda przygotowywyująca punkt pomiarowe (Point) z informację o stosunku włączonych do wyłączonych sensorów</p>
-<p><strong>Arguments</strong>:</p>
-<ul>
-<li><code>states</code> (<code>array(int)</code>): Stany sensorów</li>
-</ul>
-<p><a id="components.data2metric.InfluxClient.write_to_database"></a></p>
-<h4 id="write_to_database">write_to_database</h4>
-<pre><code class="language-python">def write_to_database(points)
+<p>Na podstawie tych wartości są wykonywane następujące kroki:</p>
+<ol>
+<li>Sparawdzamy czy w bazie <strong>AssetDB</strong> jest urządzenie o zadanym <code>MAC</code>'u i <code>UDID</code>, patrz <code>handle_hello_message(...)</code>,</li>
+<li>Pobieramy z bazy konfigurację dla grupy do której dane urządzenie należy, patrz <code>send_configuration(...)</code>,</li>
+<li>Na dedykowany danemu urządzeniu topik konfiguracyjny <code>BROKER_CONFIGURATION_TOPIC</code> wysyłamy konfigurację w formacie JSON, patrz <code>send_configuration(...)</code>. </li>
+</ol>
+<pre><code class="language-json">{
+    &quot;lower_threshold&quot;: &lt;float&gt;,
+    &quot;upper_threshold&quot;: &lt;float&gt;
+}
 </code></pre>
-<p>Metoda zapisująca stworzone punkty pomiarowe (Point) do bazy danych</p>
-<p><strong>Arguments</strong>:</p>
+<h2 id="zalenosci">Zaleności</h2>
+<p><strong>Discoverer</strong> bezpośrednio komunikuje się i zależy od następujących modułów systemu:</p>
 <ul>
-<li><code>points</code> (<code>Point()</code>): Punkty pomiarowe (Obiekty klasy Point())</li>
+<li><strong>Broker</strong> - <strong>Discoverer</strong> subskrybuje <code>BROKER_DISCOVERY_TOPIC</code> i publukuje na <code>BROKER_CONFIGURATION_TOPIC</code>. Szczegóły przesylanych wiadomości są wymienione powżyej. Konfiguracja połączenia jest poprzez zmienne <code>BROKER_*</code>,</li>
+<li><strong>AssetDB</strong> - stanowi <em>source of truth</em> dla <strong>Discoverer</strong>'a, który pobiera dane bezpośrednio z bazy wykorzystując sqlalchemy ORM, patrz <code>models.py</code>. Konfiguracja połączenia jest poprzez zmienne <code>POSTGRESQL_DB_*</code>,</li>
+<li><strong>Guardian</strong> - jest uruchomiany przy starcie <strong>Discoverer</strong>'a i otrzymuje zlecenie konfiguracje dostępu do <strong>brokera</strong>, szczegóły są w dedykowanym rozdziale dokumntacji ;  </li>
 </ul>
+<h2 id="known-issues">Known issues</h2>
+<ul>
+<li>brak walidacji dla wartości konfigów <code>0 &lt; x &lt;= 1</code></li>
+</ul>
+<h3 id="todo">TODO</h3>
 
 
 
@@ -457,7 +467,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../collector_executor_documentation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Collector Executor" rel="prev">
+        <a href="../data2metric_documentation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Data2Metric" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -466,20 +476,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Collector Executor
+              Data2Metric
             </div>
           </div>
         </a>
       
       
         
-        <a href="../discoverer_documentation/" class="md-footer__link md-footer__link--next" aria-label="Next: Discovery" rel="next">
+        <a href="../guardian_documentation/" class="md-footer__link md-footer__link--next" aria-label="Next: Guardain" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Discovery
+              Guardain
             </div>
           </div>
           <div class="md-footer__button md-icon">
