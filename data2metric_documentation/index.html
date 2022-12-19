@@ -180,6 +180,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../selected_technologies/" class="md-nav__link">
+        Wybór technologii
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../collector_executor_documentation/" class="md-nav__link">
         Collector Executor
       </a>
@@ -229,30 +244,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#influxclient-objects" class="md-nav__link">
-    InfluxClient Objects
+  <a href="#metody-w-klasie-influxclient" class="md-nav__link">
+    Metody w klasie InfluxClient()
   </a>
   
-    <nav class="md-nav" aria-label="InfluxClient Objects">
+    <nav class="md-nav" aria-label="Metody w klasie InfluxClient()">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prepare_single_sensor_datapoints" class="md-nav__link">
-    prepare_single_sensor_datapoints
+  <a href="#def-prepare_single_sensor_datapoints" class="md-nav__link">
+    def prepare_single_sensor_datapoints
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#prepare_active_lanterns_ratio_datapoint" class="md-nav__link">
-    prepare_active_lanterns_ratio_datapoint
+  <a href="#def-prepare_active_lanterns_ratio_datapoint" class="md-nav__link">
+    def prepare_active_lanterns_ratio_datapoint
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#write_to_database" class="md-nav__link">
-    write_to_database
+  <a href="#def-write_to_database" class="md-nav__link">
+    def write_to_database
   </a>
   
 </li>
@@ -360,6 +375,21 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../infra/" class="md-nav__link">
+        Infrastruktura chmurowa
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -387,30 +417,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#influxclient-objects" class="md-nav__link">
-    InfluxClient Objects
+  <a href="#metody-w-klasie-influxclient" class="md-nav__link">
+    Metody w klasie InfluxClient()
   </a>
   
-    <nav class="md-nav" aria-label="InfluxClient Objects">
+    <nav class="md-nav" aria-label="Metody w klasie InfluxClient()">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prepare_single_sensor_datapoints" class="md-nav__link">
-    prepare_single_sensor_datapoints
+  <a href="#def-prepare_single_sensor_datapoints" class="md-nav__link">
+    def prepare_single_sensor_datapoints
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#prepare_active_lanterns_ratio_datapoint" class="md-nav__link">
-    prepare_active_lanterns_ratio_datapoint
+  <a href="#def-prepare_active_lanterns_ratio_datapoint" class="md-nav__link">
+    def prepare_active_lanterns_ratio_datapoint
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#write_to_database" class="md-nav__link">
-    write_to_database
+  <a href="#def-write_to_database" class="md-nav__link">
+    def write_to_database
   </a>
   
 </li>
@@ -436,33 +466,61 @@
 
 
 <h1 id="data2metric">data2metric</h1>
+<p>Moduł konwertujący dane pochodzące z sensorów do odpowiednich metryk, a następnie zapisujący je do bazy InfluxDB.</p>
 <p><a id="components.data2metric.InfluxClient"></a></p>
-<h2 id="influxclient-objects">InfluxClient Objects</h2>
-<pre><code class="language-python">class InfluxClient()
+<h2 id="metody-w-klasie-influxclient">Metody w klasie InfluxClient()</h2>
+<pre><code class="language-python">class InfluxClient():
+   def __init__(self, org, url, bucket, token):
+        self.org = org
+        self.url = url
+        self.bucket = bucket
+        self.token = token
+        self.client = influxdb_client.InfluxDBClient(url=self.url,
+                                                     token=self.token,
+                                                     org=self.org
+                                                     )
 </code></pre>
 <p><a id="components.data2metric.InfluxClient.prepare_single_sensor_datapoints"></a></p>
-<h4 id="prepare_single_sensor_datapoints">prepare_single_sensor_datapoints</h4>
-<pre><code class="language-python">def prepare_single_sensor_datapoints(states)
+<h4 id="def-prepare_single_sensor_datapoints">def prepare_single_sensor_datapoints</h4>
+<pre><code class="language-python">def prepare_single_sensor_datapoints(states):
+        for state in states:
+            states[state] = int(states[state])
+        points = [Point(f'sensor{sensor[-1:]}').field('is_active', states[sensor]) for sensor in states]
+        return points
 </code></pre>
-<p>Metoda przygotowywyująca punkt pomiarowe (Point) z informację o stanie pojedynczej grupy sensorów</p>
+<p>Metoda przygotowywująca punkt pomiarowe (Point) z informację o stanie pojedynczej grupy sensorów.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>states</code> (<code>array(int)</code>): Informacja o stanie grupy sensorów</li>
 </ul>
 <p><a id="components.data2metric.InfluxClient.prepare_active_lanterns_ratio_datapoint"></a></p>
-<h4 id="prepare_active_lanterns_ratio_datapoint">prepare_active_lanterns_ratio_datapoint</h4>
-<pre><code class="language-python">def prepare_active_lanterns_ratio_datapoint(states)
+<h4 id="def-prepare_active_lanterns_ratio_datapoint">def prepare_active_lanterns_ratio_datapoint</h4>
+<pre><code class="language-python">def prepare_active_lanterns_ratio_datapoint(states):
+        for state in states:
+            states[state] = int(states[state])
+        point = (
+              Point(f'sensors_stats')
+              .field('active_lanterns_ratio',(sum((states.values())) / len(states)))
+              )
+        return point
 </code></pre>
-<p>Metoda przygotowywyująca punkt pomiarowe (Point) z informację o stosunku włączonych do wyłączonych sensorów</p>
+<p>Metoda przygotowywująca punkt pomiarowe (Point) z informację o stosunku włączonych do wyłączonych sensorów.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>states</code> (<code>array(int)</code>): Stany sensorów</li>
 </ul>
 <p><a id="components.data2metric.InfluxClient.write_to_database"></a></p>
-<h4 id="write_to_database">write_to_database</h4>
-<pre><code class="language-python">def write_to_database(points)
+<h4 id="def-write_to_database">def write_to_database</h4>
+<pre><code class="language-python">def write_to_database(points):
+        write_api = self.client.write_api(write_options=SYNCHRONOUS)
+        for point in points:
+            write_api.write(
+                    bucket=self.bucket,
+                    org=self.org,
+                    record=point
+                    )
 </code></pre>
-<p>Metoda zapisująca stworzone punkty pomiarowe (Point) do bazy danych</p>
+<p>Metoda zapisująca stworzone punkty pomiarowe (Point) do bazy danych.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>points</code> (<code>Point()</code>): Punkty pomiarowe (Obiekty klasy Point())</li>
