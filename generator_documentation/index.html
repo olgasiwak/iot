@@ -346,32 +346,26 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#def-updata_statesstates-sensor-choice" class="md-nav__link">
     def updata_states(STATES, sensor, choice)
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#def-display_statesstates" class="md-nav__link">
     def display_states(STATES)
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#def-start_simulatorclient-conditions-weight-states" class="md-nav__link">
     def start_simulator(client, conditions, weight, STATES)
   </a>
   
-    <nav class="md-nav" aria-label="def start_simulator(client, conditions, weight, STATES)">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#def-on_connect-orad-on_message" class="md-nav__link">
@@ -521,32 +515,26 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#def-updata_statesstates-sensor-choice" class="md-nav__link">
     def updata_states(STATES, sensor, choice)
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#def-display_statesstates" class="md-nav__link">
     def display_states(STATES)
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#def-start_simulatorclient-conditions-weight-states" class="md-nav__link">
     def start_simulator(client, conditions, weight, STATES)
   </a>
   
-    <nav class="md-nav" aria-label="def start_simulator(client, conditions, weight, STATES)">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#def-on_connect-orad-on_message" class="md-nav__link">
@@ -690,7 +678,7 @@ weather:
             weight += conditions[condition][eval(f'args.{condition}')]
     return weight
 </code></pre>
-<h2 id="def-updata_statesstates-sensor-choice">def updata_states(STATES, sensor, choice)</h2>
+<h3 id="def-updata_statesstates-sensor-choice">def updata_states(STATES, sensor, choice)</h3>
 <p>Funkcja przygotowująca wartości (stany czujnika) <code>1</code> i <code>0</code> do wysłania do brokera MQTT oraz zliczająca statystyki.</p>
 <pre><code class="language-python">def update_states(STATES, sensor, choice):
     if sensor not in STATES:
@@ -701,7 +689,7 @@ weather:
         STATES[f'current{sensor}'] = choice
     return STATES
 </code></pre>
-<h2 id="def-display_statesstates">def display_states(STATES)</h2>
+<h3 id="def-display_statesstates">def display_states(STATES)</h3>
 <p>Funkcja wyświetlająca na STDOUT informacje o danej iteracji generowania danych. Stosuje kolorowe wyświetlanie stanów.</p>
 <pre><code class="language-python">def display_states(STATES):
     print('\033[92m' + 50*'-' + '\n')
@@ -717,7 +705,7 @@ weather:
         print(10*'-')
     print('\n')
 </code></pre>
-<h2 id="def-start_simulatorclient-conditions-weight-states">def start_simulator(client, conditions, weight, STATES)</h2>
+<h3 id="def-start_simulatorclient-conditions-weight-states">def start_simulator(client, conditions, weight, STATES)</h3>
 <p>Funkcja startująca symulację, losująca wartości stanu oraz wysyłająca wiadomości co 4 sekundy do broketa MQTT.</p>
 <pre><code class="language-python">def start_simulator(client, conditions, weight, STATES):
     tmp = weight
@@ -743,7 +731,6 @@ weather:
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-    client.username_pw_set('admin-user', 'password')
     client.connect(
             config.MQTT_ADDRESS,
             config.MQTT_PORT,
