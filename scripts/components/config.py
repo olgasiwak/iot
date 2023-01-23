@@ -24,7 +24,12 @@ INFLUX_TOKEN = os.environ.get("INFLUXDB_TOKEN")
 
 DATA2METRIC_POLLING_CYCLE = 1
 
-logger = logging.getLogger(__name__)
-streamHandler = logging.StreamHandler(sys.stdout)
-logger.setLevel(logging.DEBUG)
-logger.addHandler(streamHandler)
+
+logging.basicConfig(filename="logs.txt",
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.DEBUG)
+
+logging.info("Collector and executor logs: \n")
+
